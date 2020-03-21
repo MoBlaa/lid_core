@@ -1,8 +1,8 @@
 name: core
 description: Core logic of the Lid.
 version: 0.0.1
-author:
-homepage:
+#author:
+#homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,6 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Reactive Data handling
+  rxdart: ^0.23.1
+
+  # Generate keypairs, encryption and other stuff
+  pointycastle: ^1.0.2
+
+  # Encoding public Keys to ASN.1 files
+  asn1lib: ^0.6.4
+
+  # Persistence
+  hive: ^1.4.1+1
 
 dev_dependencies:
   flutter_test:
