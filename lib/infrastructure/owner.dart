@@ -15,7 +15,7 @@ class Owner {
       publicKeyToASN1(this._keyPair.publicKey as RSAPublicKey);
 
   /// https://tools.ietf.org/html/rfc3447#appendix-A but omits the values not needed by pointycastle.
-  String get _privateKeyASN1 =>
+  String get privateKeyASN1 =>
       privateKeyToASN1(this._keyPair.privateKey as RSAPrivateKey);
 
   Owner(this.id, this.name, this._keyPair);
@@ -24,8 +24,16 @@ class Owner {
       : this(id, name, AsymmetricKeyPair(
             publicKeyFromASN1(pubEncoded), privateKeyFromASN1(privEncoded)));
 
+  static Owner fromString(String input) {
+    final split = input.split("::");
+    if (split.length != 4) {
+      throw "Invalid String Format, has to be separated by '::'";
+    }
+    return Owner.fromASN1(split[0], split[1], base64.decode(split[2]), base64.decode(split[3]));
+  }
+
   @override
-  String toString() => this.publicKeyASN1;
+  String toString() => "$id::$name::$publicKeyASN1::$privateKeyASN1";
 }
 
 class OwnerAdapter extends TypeAdapter<Owner> {
@@ -51,6 +59,6 @@ class OwnerAdapter extends TypeAdapter<Owner> {
     writer.writeString(obj.id);
     writer.writeString(obj.name);
     writer.writeString(obj.publicKeyASN1);
-    writer.writeString(obj._privateKeyASN1);
+    writer.writeString(obj.privateKeyASN1);
   }
 }
