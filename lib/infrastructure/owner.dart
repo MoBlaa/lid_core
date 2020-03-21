@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:core/utils/rsa.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:pointycastle/export.dart';
 
@@ -42,7 +41,7 @@ class OwnerAdapter extends TypeAdapter<Owner> {
       final b64Private = reader.readString();
       return Owner.fromASN1(id, name, base64.decode(b64Public), base64.decode(b64Private));
     } catch (e) {
-      debugPrint("Got error while loading owner: '$e'. Returning empty");
+      print("Got error while loading owner: '$e'. Returning empty");
       return null;
     }
   }

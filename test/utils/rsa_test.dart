@@ -1,9 +1,9 @@
 
 import 'package:asn1lib/asn1lib.dart';
 import 'package:core/utils/rsa.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 import 'package:pointycastle/export.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Test Signature generation', () {

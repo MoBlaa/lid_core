@@ -1,8 +1,9 @@
 
+import 'dart:isolate';
+
 import 'package:core/infrastructure/owner.dart';
 import 'package:core/utils/random.dart';
 import 'package:core/utils/rsa.dart';
-import 'package:flutter/foundation.dart';
 import 'package:pointycastle/api.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -19,12 +20,30 @@ class SetupBloc {
 
   Future<Owner> generate(String name) async {
     _step.add(SetupState.GeneratingId);
-    final id = await compute(generateRandomString, 32);
+    final id = await runSimpleBackground(generateRandomString, 32);
     _id.add(id);
     _step.add(SetupState.GeneratingOwner);
-    final keyPair = await compute(gen, null);
+    final keyPair = await runBackground(gen, Object());
     _step.add(SetupState.Finished);
     return Owner(id, name, keyPair);
+  }
+
+  Future<R> runBackground<T, R>(Future<R> Function(T) f, T message) async {
+    final receivePort = ReceivePort();
+    final isolate = await Isolate.spawn((message) async {
+      final result = await f(message);
+      receivePort.sendPort.send(result);
+    }, message);
+    return await receivePort.first;
+  }
+
+  Future<R> runSimpleBackground<T, R>(R Function(T) f, T message) async {
+    final receivePort = ReceivePort();
+    final isolate = await Isolate.spawn((message) async {
+      final result = await f(message);
+      receivePort.sendPort.send(result);
+    }, message);
+    return await receivePort.first;
   }
 }
 

@@ -8,8 +8,6 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   # Reactive Data handling
   rxdart: ^0.23.1
 
@@ -23,8 +21,7 @@ dependencies:
   hive: ^1.4.1+1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  test: ^1.14.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
