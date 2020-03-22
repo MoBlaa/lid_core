@@ -9,15 +9,17 @@ import 'package:pointycastle/export.dart';
 
 /// Implements following RFC standards:
 class ECDSAModule extends AsymmetricModule {
+  static get params => ECCurve_secp521r1();
+
   @override
   String get algorithm => "ECDSA";
 
   @override
   AsymmetricKeyPair<PublicKey, PrivateKey> genKeyPair(SecureRandom rnd) {
-    final params = ECKeyGeneratorParameters(ECCurve_prime256v1());
+    final p = ECKeyGeneratorParameters(params);
 
     final gen = ECKeyGenerator();
-    gen.init(ParametersWithRandom(params, rnd));
+    gen.init(ParametersWithRandom(p, rnd));
 
     return gen.generateKeyPair();
   }
@@ -27,7 +29,7 @@ class ECDSAModule extends AsymmetricModule {
     final parser = ASN1Parser(encoded);
     final seq = parser.nextObject() as ASN1Sequence;
     final encodedKey = seq.elements[0] as ASN1Integer;
-    return ECPrivateKey(encodedKey.valueAsBigInteger, ECCurve_prime256v1());
+    return ECPrivateKey(encodedKey.valueAsBigInteger, params);
   }
 
   @override
@@ -44,9 +46,9 @@ class ECDSAModule extends AsymmetricModule {
     final parser = ASN1Parser(encoded);
     final seq = parser.nextObject() as ASN1Sequence;
 
-    final params = ECCurve_prime256v1();
-    final curve = params.curve;
-    return ECPublicKey(curve.decodePoint(seq.elements[0].contentBytes()), params);
+    final p = params;
+    final curve = p.curve;
+    return ECPublicKey(curve.decodePoint(seq.elements[0].contentBytes()), p);
   }
 
   @override
