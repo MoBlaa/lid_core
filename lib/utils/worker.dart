@@ -24,15 +24,15 @@ abstract class WorkerEvent {
 }
 
 class GenIdEvent extends WorkerEvent {
-  final int strlen;
+  final int length;
 
-  GenIdEvent({this.strlen}) : super(type: GenIdType);
+  GenIdEvent({this.length}) : super(type: GenIdType);
 
-  GenIdEvent.fromJson(Map<String, dynamic> json): this(strlen: json['strlen']);
+  GenIdEvent.fromJson(Map<String, dynamic> json): this(length: json['strlen']);
 
   @override
   Map<String, dynamic> toJson() => {
-        'strlen': strlen,
+        'strlen': length,
         'type': type,
   };
 }
