@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:core/core.dart';
 import 'package:core/infrastructure/owner.dart';
+import 'package:core/utils/asymmetric/rsa.dart';
 import 'package:core/utils/random.dart';
-import 'package:core/utils/rsa.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -30,6 +30,7 @@ class SetupBloc {
 
 Owner genOwner(Map<String, dynamic> params) {
   final rand = newRandom();
-  final keyPair = genKeyPair(rand);
-  return Owner(params['id'], params['name'], keyPair);
+  final module = RSAModule();
+  final keyPair = module.genKeyPair(rand);
+  return Owner(params['id'], params['name'], module, keyPair);
 }
