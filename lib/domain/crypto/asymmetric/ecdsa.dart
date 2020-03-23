@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:asn1lib/asn1lib.dart';
-import 'package:core/utils/asymmetric/asymmetric_module.dart';
 import 'package:pointycastle/api.dart';
 import 'package:pointycastle/export.dart';
+
+import 'asymmetric_module.dart';
 
 /// Implements following RFC standards:
 class ECDSAModule extends AsymmetricModule {

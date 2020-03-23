@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:core/utils/asymmetric/asymmetric_module.dart';
 import 'package:hive/hive.dart';
 import 'package:pointycastle/export.dart';
+
+import 'crypto/asymmetric/asymmetric_module.dart';
 
 class Owner {
   final String id;

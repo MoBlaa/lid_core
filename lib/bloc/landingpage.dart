@@ -1,4 +1,4 @@
-import 'package:core/infrastructure/owner.dart';
+import 'package:core/domain/owner.dart';
 import 'package:core/infrastructure/repo.dart';
 import 'package:rxdart/rxdart.dart';
 

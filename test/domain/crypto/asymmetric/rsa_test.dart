@@ -1,7 +1,7 @@
 
 import 'package:asn1lib/asn1lib.dart';
-import 'package:core/utils/asymmetric/rsa.dart';
-import 'package:core/utils/random.dart';
+import 'package:core/domain/crypto/asymmetric/rsa.dart';
+import 'package:core/domain/crypto/random.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 import 'package:pointycastle/export.dart';
 import 'package:test/test.dart';
@@ -17,8 +17,8 @@ void main() {
     // Generate KeyPair
     final module = RSAModule();
     final keyPair = module.genKeyPair(newRandom());
-    final publicKey = keyPair.publicKey;
-    final privateKey = keyPair.privateKey;
+    final publicKey = keyPair.publicKey as RSAPublicKey;
+    final privateKey = keyPair.privateKey as RSAPrivateKey;
 
     // Encode public key to include
     final encodedPubKey = ASN1Sequence();

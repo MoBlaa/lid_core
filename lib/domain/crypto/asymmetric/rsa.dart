@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:asn1lib/asn1lib.dart';
-import 'package:core/utils/asymmetric/asymmetric_module.dart';
 import 'package:pointycastle/export.dart';
+
+import 'asymmetric_module.dart';
 
 class RSAModule implements AsymmetricModule {
   @override
-  AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey> genKeyPair(SecureRandom rnd) {
+  AsymmetricKeyPair<PublicKey, PrivateKey> genKeyPair(SecureRandom rnd) {
     final params = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 12);
 
     final gen = RSAKeyGenerator();

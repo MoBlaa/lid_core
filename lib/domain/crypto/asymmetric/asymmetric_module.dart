@@ -2,10 +2,11 @@
 import 'dart:typed_data';
 
 import 'package:asn1lib/asn1lib.dart';
-import 'package:core/utils/asymmetric/ecdsa.dart';
-import 'package:core/utils/asymmetric/rsa.dart';
 import 'package:pointycastle/api.dart';
 import 'package:pointycastle/export.dart';
+
+import 'ecdsa.dart';
+import 'rsa.dart';
 
 abstract class AsymmetricModule {
   static AsymmetricModule fromString(String alg) {
